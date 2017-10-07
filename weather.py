@@ -3,6 +3,10 @@ import os
 import json
 import datetime
 
+os.system('clear')
+
+status=open('info.txt','a')
+
 def current_weather():
 	city = raw_input('\nEnter a city: ')
 	url = 'http://api.openweathermap.org/data/2.5/weather?q='+str(city)+'&appid=fc8daefb1e89120464ca7213c044a694'
@@ -24,15 +28,23 @@ def current_weather():
 
 		print '\nWeather forecast of "'+city_name+'" as on '+str(date)+':'
 		print 'Description 		: '+description
-		# print '\nCity: '+city_name
 		print 'Temperature 		: '+str(temp)+' Kelvin'
 		print 'Pressure 		: '+str(pressure)+' hPa'
 		print 'Humidity 		: '+str(humidity)+'%'
 		print 'Cloudiness 		: '+str(clouds)+'%'
 		print 'Wind speed 		: '+str(wind_speed)+' m/s at '+str(wind_dir)+' degrees'
 
+		status.write('\nWeather forecast of "'+city_name+'" as on '+str(date)+':')
+		status.write('\nDescription 		: '+description)
+		status.write('\nTemperature 		: '+str(temp)+' Kelvin')
+		status.write('\nPressure 		: '+str(pressure)+' hPa')
+		status.write('\nHumidity 		: '+str(humidity)+'%')
+		status.write('\nCloudiness 		: '+str(clouds)+'%')
+		status.write('\nWind speed 		: '+str(wind_speed)+' m/s at '+str(wind_dir)+' degrees')
+
 	except KeyError:
 		print "\nSorry, couldn't find data for '"+city+"'!\n"
+		status.write("\nSorry, couldn't find data for '"+city+"'!\n")
 
 
 def driver():
@@ -43,6 +55,7 @@ def driver():
 			current_weather()
 		else:
 			print '\nThank you for using!'
+			status.write('\nThank you for using!')
 			break
 
 driver()
